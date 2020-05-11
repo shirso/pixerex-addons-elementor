@@ -1,0 +1,47 @@
+.pixerex-counter-area {
+    padding: 10px 0;
+}
+.pixerex-counter-area .pixerex-counter-icon span.icon {
+    width: 1em;
+    height: 1em;
+    line-height: 1em;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+}
+.pixerex-counter-area .pixerex-counter-title {
+    padding: 0;
+    margin: 0;
+}
+.pixerex-counter-icon .icon i.fa:before {
+    vertical-align: text-top;
+}
+/* * Circle Icon style */
+.pixerex-counter-area .pixerex-counter-icon .circle {
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+.pixerex-counter-area.center {
+    text-align: center;
+}
+.pixerex-counter-area .right, .pixerex-counter-area .left {
+    display: table-cell;
+    vertical-align: middle;
+}
+.pixerex-counter-icon.right {
+    padding-left: 20px;
+}
+.pixerex-counter-icon.left {
+    padding-right: 20px;
+}
+.pixerex-init-wrapper.right {
+    text-align: right;
+}
+/* * Custom image and simple styles image fix */
+span.icon.flex-width {
+    width: auto !important;
+    height: auto !important;
+}
+.pixerex-counter-area .pixerex-counter-init {
+    font-size: 35px;
+}

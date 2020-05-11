@@ -1,0 +1,91 @@
+.premium-video-box-container {
+    position: relative;
+    height: 0;
+}
+.pa-aspect-ratio-11 .premium-video-box-container {
+    padding-bottom: 100%;
+}
+.pa-aspect-ratio-169 .premium-video-box-container {
+    padding-bottom: 56.25%;
+}
+.pa-aspect-ratio-43 .premium-video-box-container {
+    padding-bottom: 75%;
+}
+.pa-aspect-ratio-32 .premium-video-box-container {
+    padding-bottom: 66.6666%;
+}
+.pa-aspect-ratio-219 .premium-video-box-container {
+    padding-bottom: 42.8571%;
+}
+.premium-video-box-image-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50%;
+    cursor: pointer;
+}
+.premium-video-box-play-icon-container {
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+    -webkit-transform: translate(50%,-50%);
+    -ms-transform: translate(50%,-50%);
+    transform: translate(50%,-50%);
+    background: rgba(252,252,252,0.35);
+}
+.premium-video-box-description-container {
+    position: absolute;
+    z-index: 1;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-transform: translate(50%,-50%);
+    -ms-transform: translate(50%,-50%);
+    transform: translate(50%,-50%);
+}
+.premium-video-box-text {
+    margin-bottom: 0 !important;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.premium-video-box-play-icon{
+    padding: 15px;
+    -webkit-transform: translateX(-4%);
+    -ms-transform: translateX(-4%);
+    transform: translateX(-4%);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.premium-video-box-video-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: opacity 0.8s ease-in-out;
+    transition: opacity 0.8s ease-in-out;
+    overflow: hidden;
+    cursor: pointer;
+}
+.premium-video-box-container[data-overlay="true"][data-type="self"] .premium-video-box-video-container {
+    opacity: 0;
+    visibility: hidden;
+}
+.premium-video-box-video-container iframe, .premium-video-box-video-container video {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 1;
+    border: none;
+}
+.premium-video-box-video-container video {
+    background-color: #000;
+    -o-object-fit: contain;
+    object-fit: contain;
+}

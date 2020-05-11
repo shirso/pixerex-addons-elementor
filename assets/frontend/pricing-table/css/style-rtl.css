@@ -1,0 +1,206 @@
+.pixerex-pricing-table-container {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.pixerex-badge-left, .pixerex-badge-right {
+    position:absolute;
+    top: 0;
+}
+.pixerex-badge-right {
+    left: 0;
+}
+.pixerex-badge-left {
+    right: 0;
+}
+.pixerex-badge-triangle.pixerex-badge-left .corner {
+    width: 0;
+    height: 0;
+    border-top: 150px solid;
+    border-bottom: 150px solid transparent;
+    border-left: 150px solid transparent;
+}
+.pixerex-badge-triangle.pixerex-badge-right .corner {
+    width: 0;
+    height: 0;
+    border-bottom: 150px solid transparent;
+    border-left: 150px solid;
+    border-right: 150px solid transparent;
+}
+.pixerex-badge-triangle span {
+    position:absolute;
+    top: 35px;
+    width: 100px;
+    text-align: center;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display:block;
+    text-transform: uppercase;
+}
+.pixerex-badge-triangle.pixerex-badge-right span {
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: 0;
+}
+.pixerex-badge-circle {
+    min-width: 4em;
+    min-height: 4em;
+    line-height: 4em;
+    text-align: center;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    position: absolute;
+    z-index: 1;
+}
+.pixerex-badge-stripe {
+    position: absolute;
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    width: 15em;
+    overflow: hidden;
+    height: 15em;
+}
+.pixerex-badge-stripe.pixerex-badge-left {
+    -webkit-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+}
+.pixerex-badge-stripe .corner {
+    text-align: center;
+    right: 0;
+    width: 150%;
+    -webkit-transform: translateY(-50%) translateX(50%) translateX(-35px) rotate(45deg);
+    -ms-transform: translateY(-50%) translateX(50%) translateX(-35px) rotate(45deg);
+    transform: translateY(-50%) translateX(50%) translateX(-35px) rotate(45deg);
+    margin-top: 35px;
+    font-size: 13px;
+    line-height: 2;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.pixerex-badge-flag .corner {
+    text-align: center;
+    -webkit-border-radius: 4px;
+    border-radius: 4px 4px 4px 0;
+    padding: 3px 15px;
+    position: absolute;
+    top: 10%;
+    left: -8px;
+}
+.pixerex-badge-flag .corner::before,
+.pixerex-badge-flag .corner::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 100%;
+    left: 0;
+    border-bottom: 8px solid transparent;
+}
+.elementor-widget-pixerex-addon-pricing-table .elementor-widget-container {
+    overflow: visible !important;
+}
+.pixerex-badge-flag .corner::after {
+    border-right: 8px solid rgba(0,0,0,.2)
+}
+.pixerex-pricing-price-currency {
+    position: relative;
+}
+.pixerex-pricing-icon-container {
+    line-height: 0;
+}
+.pixerex-pricing-button-container {
+    display: block;
+}
+.pixerex-pricing-list {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: -moz-box;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    flex-direction: column;
+    list-style-type: none;
+    margin: 0;
+}
+.pixerex-pricing-list li {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: -moz-box;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    align-items: center;
+}
+.pixerex-pricing-list .pixerex-pricing-list-span {
+    position: relative;
+}
+.pixerex-pricing-list .list-item-tooltip {
+    border-bottom: 1px dotted;
+}
+.pixerex-pricing-list .pixerex-pricing-list-tooltip {
+    position: absolute;
+    top: -webkit-calc(100% + 1px);
+    top: calc(100% + 1px);
+    right: 0;
+    visibility: hidden;
+    padding: 15px 20px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    min-width: 200px;
+    overflow: hidden;
+    text-align: right;
+    font-size: .8rem;
+    color: #fff;
+    background-color: #aaa;
+}
+.pixerex-pricing-list-span:hover .pixerex-pricing-list-tooltip {
+    z-index: 99;
+    visibility: visible;
+    opacity: 1;
+}
+.pixerex-pricing-slashed-price-value {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 5px;
+}
+.pixerex-pricing-price-value {
+    font-size: 70px;
+}
+.pixerex-pricing-description-container li{
+    list-style-position: inside;
+    text-indent: -40px;
+}
+@-moz-document url-prefix() {
+    .pixerex-pricing-description-container li{
+        text-indent: 0px;
+    }
+}
+.pixerex-pricing-price-button {
+    display: block;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-align: center;
+    color: #fff;
+    background: #6ec1e4;
+    margin-bottom: 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
