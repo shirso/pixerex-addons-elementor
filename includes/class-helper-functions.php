@@ -343,4 +343,86 @@ class Helper_Functions {
         
         return $thumbnail_src;
     }
+
+    /**
+     * Check elementor version
+     *
+     * @param string $version
+     * @param string $operator
+     * @return bool
+     */
+    public static function is_elementor_version( $operator = '<', $version = '2.6.0' ) {
+        return defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, $version, $operator );
+    }
+
+    /**
+     * Get a translatable string with allowed html tags.
+     *
+     * @param string $level Allowed levels are basic and intermediate
+     * @return string
+     */
+    public static function ha_get_allowed_html_desc( $level = 'basic' ) {
+        if ( ! in_array( $level, [ 'basic', 'intermediate' ] ) ) {
+            $level = 'basic';
+        }
+
+        $tags_str = '<' . implode( '>,<', array_keys( self::ha_get_allowed_html_tags( $level ) ) ) . '>';
+        return sprintf( __( 'This input field has support for the following HTML tags: %1$s', 'happy-elementor-addons' ), '<code>' . esc_html( $tags_str ) . '</code>' );
+    }
+    /**
+     * Get a list of all the allowed html tags.
+     *
+     * @param string $level Allowed levels are basic and intermediate
+     * @return array
+     */
+   public static function ha_get_allowed_html_tags( $level = 'basic' ) {
+        $allowed_html = [
+            'b' => [],
+            'i' => [],
+            'u' => [],
+            'em' => [],
+            'br' => [],
+            'abbr' => [
+                'title' => [],
+            ],
+            'span' => [
+                'class' => [],
+            ],
+            'strong' => [],
+        ];
+
+        if ( $level === 'intermediate' ) {
+            $allowed_html['a'] = [
+                'href' => [],
+                'title' => [],
+                'class' => [],
+                'id' => [],
+            ];
+        }
+
+        return $allowed_html;
+    }
+
+    /**
+     * Strip all the tags except allowed html tags
+     *
+     * The name is based on inline editing toolbar name
+     *
+     * @param string $string
+     * @return string
+     */
+    public static function ha_kses_basic( $string = '' ) {
+        return wp_kses( $string, self::ha_get_allowed_html_tags( 'basic' ) );
+    }
+    /**
+     * Strip all the tags except allowed html tags
+     *
+     * The name is based on inline editing toolbar name
+     *
+     * @param string $string
+     * @return string
+     */
+    function ha_kses_intermediate( $string = '' ) {
+        return wp_kses( $string, self::ha_get_allowed_html_tags( 'intermediate' ) );
+    }
 }

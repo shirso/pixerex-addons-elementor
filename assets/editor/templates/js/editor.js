@@ -1,7 +1,9 @@
 (function ($) {
 
 	'use strict';
-
+    window.ha_has_icon_library = function() {
+        return ( elementor.helpers && elementor.helpers.renderIcon );
+    };
 	var PremiumTempsData = window.PremiumTempsData || {},
 		PremiumEditor,
 		PremiumEditorViews,

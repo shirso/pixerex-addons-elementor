@@ -10,7 +10,7 @@ class Modules_Settings {
     
     protected $page_slug = 'pixerex-elements';
 
-    public static $pr_elements_keys = ['pixerex-portfolio','pixerex-banner', 'pixerex-blog','pixerex-carousel', 'pixerex-countdown','pixerex-counter','pixerex-dual-header','pixerex-maps','pixerex-modalbox','pixerex-progressbar','pixerex-pricing-table','pixerex-button','pixerex-contactform', 'pixerex-image-button', 'pixerex-grid','pixerex-image-scroll', 'pixerex-templates', 'pixerex-duplicator'];
+    public static $pr_elements_keys = ['pixerex-card','pixerex-image-compare','pixerex-slider','pixerex-image-carousel','pixerex-step-flow','pixerex-infobox','pixerex-services','pixerex-flipbox','pixerex-team','pixerex-team-carousel','pixerex-testimonials-slider','pixerex-dynamic-portfolio','pixerex-dynamic-post-carousel','pixerex-instagram','pixerex-blog'];
     
     private $pr_default_settings;
     
@@ -142,170 +142,128 @@ class Modules_Settings {
                     </div>
                     <table class="pr-elements-table">
                         <tbody>
-                        <tr>
-
-                            <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Dynamic Portfolio', 'pixerex-elements') ); ?></th>
-                            <td>
-                                <label class="switch">
-                                    <input type="checkbox" id="pixerex-portfolio" name="pixerex-portfolio" <?php checked(1, $this->pr_get_settings['pixerex-portfolio'], true) ?>>
-                                    <span class="slider round"></span>
-                                </label>
-                            </td>
-                        </tr>
                             <tr>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Banner', 'pixerex-elements') ); ?></th>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Card', 'pixerex-elements') ); ?></th>
                                 <td>
                                     <label class="switch">
-                                        <input type="checkbox" id="pixerex-banner" name="pixerex-banner" <?php checked(1, $this->pr_get_settings['pixerex-banner'], true) ?>>
+                                        <input type="checkbox" id="pixerex-card" name="pixerex-card" <?php checked(1, $this->pr_get_settings['pixerex-card'], true) ?>>
                                         <span class="slider round"></span>
-                                </label>
+                                    </label>
+                                </td>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Image Compare', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-image-compare" name="pixerex-image-compare" <?php checked(1, $this->pr_get_settings['pixerex-image-compare'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Slider', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-slider" name="pixerex-slider" <?php checked(1, $this->pr_get_settings['pixerex-slider'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Image Carousel', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-image-carousel" name="pixerex-image-carousel" <?php checked(1, $this->pr_get_settings['pixerex-image-carousel'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Step Flow', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-step-flow" name="pixerex-step-flow" <?php checked(1, $this->pr_get_settings['pixerex-step-flow'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Infobox', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-infobox" name="pixerex-infobox" <?php checked(1, $this->pr_get_settings['pixerex-infobox'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Services', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-services" name="pixerex-services" <?php checked(1, $this->pr_get_settings['pixerex-services'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Flipbox', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-flipbox" name="pixerex-flipbox" <?php checked(1, $this->pr_get_settings['pixerex-flipbox'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Team', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-team" name="pixerex-team" <?php checked(1, $this->pr_get_settings['pixerex-team'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Team Carousel', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-team-carousel" name="pixerex-team-carousel" <?php checked(1, $this->pr_get_settings['pixerex-team-carousel'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Testimonials Slider', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-testimonials-slider" name="pixerex-testimonials-slider" <?php checked(1, $this->pr_get_settings['pixerex-testimonials-slider'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Dynamic Portfolio', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-dynamic-portfolio" name="pixerex-dynamic-portfolio" <?php checked(1, $this->pr_get_settings['pixerex-dynamic-portfolio'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Post Carousel', 'pixerex-elements') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="pixerex-dynamic-post-carousel" name="pixerex-dynamic-post-carousel" <?php checked(1, $this->pr_get_settings['pixerex-dynamic-post-carousel'], true) ?>>
+                                        <span class="slider round"></span>
+                                    </label>
                                 </td>
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Blog', 'pixerex-elements') ); ?></th>
                                 <td>
                                     <label class="switch">
-                                            <input type="checkbox" id="pixerex-blog" name="pixerex-blog" <?php checked(1, $this->pr_get_settings['pixerex-blog'], true) ?>>
-                                            <span class="slider round"></span>
+                                        <input type="checkbox" id="pixerex-blog" name="pixerex-blog" <?php checked(1, $this->pr_get_settings['pixerex-blog'], true) ?>>
+                                        <span class="slider round"></span>
                                     </label>
                                 </td>
                             </tr>
-                            
                             <tr>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Button', 'pixerex-elements') ); ?></th>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Instagram Feed', 'pixerex-elements') ); ?></th>
                                 <td>
                                     <label class="switch">
-                                            <input type="checkbox" id="pixerex-button" name="pixerex-button" <?php checked(1, $this->pr_get_settings['pixerex-button'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Carousel', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-carousel" name="pixerex-carousel" <?php checked(1, $this->pr_get_settings['pixerex-carousel'], true) ?>>
-                                            <span class="slider round"></span>
+                                        <input type="checkbox" id="pixerex-instagram" name="pixerex-instagram" <?php checked(1, $this->pr_get_settings['pixerex-instagram'], true) ?>>
+                                        <span class="slider round"></span>
                                     </label>
                                 </td>
                             </tr>
-                            
-                            <tr>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Contact Form7', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-contactform" name="pixerex-contactform" <?php checked(1, $this->pr_get_settings['pixerex-contactform'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Countdown', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-countdown" name="pixerex-countdown" <?php checked(1, $this->pr_get_settings['pixerex-countdown'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Counter', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-counter" name="pixerex-counter" <?php checked(1, $this->pr_get_settings['pixerex-counter'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Dual Heading', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-dual-header" name="pixerex-dual-header" <?php checked(1, $this->pr_get_settings['pixerex-dual-header'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Media Grid', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-grid" name="pixerex-grid" <?php checked(1, $this->pr_get_settings['pixerex-grid'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Image Button', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-image-button" name="pixerex-image-button" <?php checked(1, $this->pr_get_settings['pixerex-image-button'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Image Scroll', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-image-scroll" name="pixerex-image-scroll" <?php checked(1, $this->pr_get_settings['pixerex-image-scroll'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Maps', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-maps" name="pixerex-maps" <?php checked(1, $this->pr_get_settings['pixerex-maps'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Modal Box', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-modalbox" name="pixerex-modalbox" <?php checked(1, $this->pr_get_settings['pixerex-modalbox'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Progress Bar', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-progressbar" name="pixerex-progressbar" <?php checked(1, $this->pr_get_settings['pixerex-progressbar'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Pricing Table', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-pricing-table" name="pixerex-pricing-table" <?php checked(1, $this->pr_get_settings['pixerex-pricing-table'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Duplicator', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-duplicator" name="pixerex-duplicator" <?php checked(1, $this->pr_get_settings['pixerex-duplicator'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                
-                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Templates', 'pixerex-elements') ); ?></th>
-                                <td>
-                                    <label class="switch">
-                                            <input type="checkbox" id="pixerex-templates" name="pixerex-templates" <?php checked(1, $this->pr_get_settings['pixerex-templates'], true) ?>>
-                                            <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                
-                            </tr>
+
                         </tbody>
                     </table>
                     <input type="submit" value="<?php echo __('Save Settings', 'pixerex-elements'); ?>" class="button pr-btn pr-save-button">
@@ -380,28 +338,24 @@ class Modules_Settings {
         } else {
             return;
         }
-
+       // echo 'hey you';
         $this->pr_settings = array(
-            'pixerex-portfolio'            => intval( $settings['pixerex-portfolio'] ? 1 : 0 ),
-            'pixerex-banner'            => intval( $settings['pixerex-banner'] ? 1 : 0 ),
-            'pixerex-blog'              => intval( $settings['pixerex-blog'] ? 1 : 0 ),
-            'pixerex-carousel'          => intval( $settings['pixerex-carousel'] ? 1 : 0 ),
-            'pixerex-countdown'         => intval( $settings['pixerex-countdown'] ? 1 : 0 ),
-            'pixerex-counter'           => intval( $settings['pixerex-counter'] ? 1 : 0 ),
-            'pixerex-dual-header'       => intval( $settings['pixerex-dual-header'] ? 1 : 0 ),
-            'pixerex-maps'              => intval( $settings['pixerex-maps'] ? 1 : 0 ),
-            'pixerex-modalbox' 			=> intval( $settings['pixerex-modalbox'] ? 1 : 0 ),
-            'pixerex-progressbar' 		=> intval( $settings['pixerex-progressbar'] ? 1 : 0 ),
-            'pixerex-pricing-table'     => intval( $settings['pixerex-pricing-table'] ? 1 : 0 ),
-            'pixerex-button'            => intval( $settings['pixerex-button'] ? 1 : 0 ),
-            'pixerex-contactform'       => intval( $settings['pixerex-contactform'] ? 1 : 0 ),
-            'pixerex-image-button'      => intval( $settings['pixerex-image-button'] ? 1 : 0 ),
-            'pixerex-grid'              => intval( $settings['pixerex-grid'] ? 1 : 0 ),
-            'pixerex-image-scroll'      => intval( $settings['pixerex-image-scroll'] ? 1 : 0 ),
-            'pixerex-templates'         => intval( $settings['pixerex-templates'] ? 1 : 0 ),
-            'pixerex-duplicator'        => intval( $settings['pixerex-duplicator'] ? 1 : 0 ),
+            'pixerex-card'              => intval( $settings['pixerex-card'] ? 1 : 0 ),
+            'pixerex-image-compare'     => intval( $settings['pixerex-image-compare'] ? 1 : 0 ),
+            'pixerex-slider'            => intval( $settings['pixerex-slider'] ? 1 : 0 ),
+            'pixerex-image-carousel'    => intval( $settings['pixerex-image-carousel'] ? 1 : 0 ),
+            'pixerex-step-flow'         => intval( $settings['pixerex-step-flow'] ? 1 : 0 ),
+            'pixerex-infobox'           => intval( $settings['pixerex-infobox'] ? 1 : 0 ),
+            'pixerex-services'          => intval( $settings['pixerex-services'] ? 1 : 0 ),
+            'pixerex-flipbox'           => intval( $settings['pixerex-flipbox'] ? 1 : 0 ),
+            'pixerex-team' 			    => intval( $settings['pixerex-team'] ? 1 : 0 ),
+            'pixerex-team-carousel' 	=> intval( $settings['pixerex-team-carousel'] ? 1 : 0 ),
+            'pixerex-testimonials-slider'=> intval( $settings['pixerex-testimonials-slider'] ? 1 : 0 ),
+            'pixerex-dynamic-portfolio'  => intval( $settings['pixerex-dynamic-portfolio'] ? 1 : 0 ),
+            'pixerex-dynamic-post-carousel'=> intval( $settings['pixerex-dynamic-post-carousel'] ? 1 : 0 ),
+            'pixerex-instagram'            => intval( $settings['pixerex-instagram'] ? 1 : 0 ),
+            'pixerex-blog'                 => intval( $settings['pixerex-blog'] ? 1 : 0 ),
         );
-
         update_option( 'pr_save_settings', $this->pr_settings );
 
         return true;

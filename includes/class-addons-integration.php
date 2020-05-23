@@ -2,8 +2,8 @@
 
 namespace PixerexElements;
 
-use PixerexElements\Admin\Settings\Maps;
 use PixerexElements\Admin\Settings\Modules_Settings;
+use Elementor\Core\Files\CSS\Post as Post_CSS;
 use PixerexElements\Helper_Functions;
 
 if( ! defined( 'ABSPATH' ) ) exit();
@@ -19,10 +19,6 @@ class Addons_Integration {
     //`pixerex_Template_Tags` Instance
     protected $templateInstance;
 
-
-    //Maps Keys
-    private static $maps = null;
-    
     
     /**
     * Initialize integration hooks
@@ -32,9 +28,7 @@ class Addons_Integration {
     public function __construct() {
         
         self::$modules = Modules_Settings::get_enabled_keys();
-        
-        self::$maps = Maps::get_enabled_keys();
-        
+
         $this->templateInstance = Includes\pixerex_Template_Tags::getInstance();
         
         add_action( 'elementor/editor/before_enqueue_styles', array( $this, 'pixerex_font_setup' ) );
@@ -50,8 +44,13 @@ class Addons_Integration {
         add_action( 'elementor/frontend/after_register_scripts', array( $this, 'register_frontend_scripts' ) );
         
         add_action( 'wp_ajax_get_elementor_template_content', array( $this, 'get_template_content' ) );
+
+        // Placeholder image replacement
+        //add_filter( 'elementor/utils/get_placeholder_image_src', [ __CLASS__, 'set_placeholder_image' ] );
         
     }
+
+
     
     /**
     * Loads plugin icons font
@@ -145,7 +144,7 @@ class Addons_Integration {
         foreach ( glob( PIXEREX_ELEMENTS_PATH . 'widgets/' . '*.php' ) as $file ) {
             
             $slug = basename( $file, '.php' );
-            
+
             $enabled = isset( $check_component_active[ $slug ] ) ? $check_component_active[ $slug ] : '';
             
             if ( filter_var( $enabled, FILTER_VALIDATE_BOOLEAN ) || ! $check_component_active ) {
@@ -163,118 +162,118 @@ class Addons_Integration {
     */
     public function register_frontend_scripts() {
         
-        $maps_settings = self::$maps;
-        
-        $dir = Helper_Functions::get_scripts_dir();
-		$suffix = Helper_Functions::get_assets_suffix();
-        
-        $locale = isset ( $maps_settings['pixerex-map-locale'] ) ? $maps_settings['pixerex-map-locale'] : "en";
-        
-        wp_register_script(
-            'pixerex-elements-js',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/pixerex-elements' . $suffix . '.js',
-            array('jquery'),
-            PIXEREX_ELEMENTS_VERSION,
-            true
-        );
-        
-        wp_register_script(
-            'prettyPhoto-js',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/prettyPhoto' . $suffix . '.js',
-            array('jquery'),
-            PIXEREX_ELEMENTS_VERSION,
-            true
-        );
-        
-        wp_register_script(
-            'vticker-js',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/vticker' . $suffix . '.js',
-            array('jquery'),
-            PIXEREX_ELEMENTS_VERSION,
-            true
-        );
-        wp_register_script(
-            'typed-js',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/typed' . $suffix . '.js',
-            array('jquery'),
-            PIXEREX_ELEMENTS_VERSION,
-            true
-        );
-        
-        wp_register_script(
-            'count-down-timer-js',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/jquery-countdown' . $suffix . '.js',
-            array('jquery'),
-            PIXEREX_ELEMENTS_VERSION,
-            true
-        );
-       
-        wp_register_script(
-            'isotope-js',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/isotope' . $suffix . '.js',
-            array('jquery'),
-            PIXEREX_ELEMENTS_VERSION,
-            true
-        );
-
-        wp_register_script(
-            'modal-js',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/modal' . $suffix . '.js',
-            array('jquery'),
-            PIXEREX_ELEMENTS_VERSION,
-            true
-        );
-        
-        wp_register_script(
-            'pixerex-maps-js',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/pixerex-maps' . $suffix . '.js',
-            array( 'jquery', 'pixerex-maps-api-js' ),
-            PIXEREX_ELEMENTS_VERSION,
-            true
-        );
-        
-       wp_register_script( 
-           'slimscroll-js',
-           PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/jquery-slimscroll' . $suffix . '.js',
-           array('jquery'),
-           PIXEREX_ELEMENTS_VERSION,
-           true
-       );
-       
-       wp_register_script( 
-           'iscroll-js',
-           PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/iscroll' . $suffix . '.js',
-           array('jquery'),
-           PIXEREX_ELEMENTS_VERSION,
-           true
-       );
-       
-       if( $maps_settings['pixerex-map-cluster'] ) {
-            wp_register_script(
-                'google-maps-cluster',
-                'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js',
-                array(),
-                PIXEREX_ELEMENTS_VERSION,
-                false
-            );
-        }
-        
-        if( $maps_settings['pixerex-map-disable-api'] && '1' != $maps_settings['pixerex-map-api'] ) {
-			$api = sprintf ( 'https://maps.googleapis.com/maps/api/js?key=%1$s&language=%2$s', $maps_settings['pixerex-map-api'], $locale );
-            wp_register_script(
-                'pixerex-maps-api-js',
-                $api,
-                array(),
-                PIXEREX_ELEMENTS_VERSION,
-                false
-            );
-        }
-        
-        $data = array(
-            'ajaxurl'       => esc_url( admin_url( 'admin-ajax.php' ) )
-        );
-        
-		wp_localize_script( 'pixerex-elements-js', 'PixerexSettings', $data );
+//        $maps_settings = self::$maps;
+//
+//        $dir = Helper_Functions::get_scripts_dir();
+//		$suffix = Helper_Functions::get_assets_suffix();
+//
+//        $locale = isset ( $maps_settings['pixerex-map-locale'] ) ? $maps_settings['pixerex-map-locale'] : "en";
+//
+//        wp_register_script(
+//            'pixerex-elements-js',
+//            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/pixerex-elements' . $suffix . '.js',
+//            array('jquery'),
+//            PIXEREX_ELEMENTS_VERSION,
+//            true
+//        );
+//
+//        wp_register_script(
+//            'prettyPhoto-js',
+//            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/prettyPhoto' . $suffix . '.js',
+//            array('jquery'),
+//            PIXEREX_ELEMENTS_VERSION,
+//            true
+//        );
+//
+//        wp_register_script(
+//            'vticker-js',
+//            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/vticker' . $suffix . '.js',
+//            array('jquery'),
+//            PIXEREX_ELEMENTS_VERSION,
+//            true
+//        );
+//        wp_register_script(
+//            'typed-js',
+//            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/typed' . $suffix . '.js',
+//            array('jquery'),
+//            PIXEREX_ELEMENTS_VERSION,
+//            true
+//        );
+//
+//        wp_register_script(
+//            'count-down-timer-js',
+//            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/jquery-countdown' . $suffix . '.js',
+//            array('jquery'),
+//            PIXEREX_ELEMENTS_VERSION,
+//            true
+//        );
+//
+//        wp_register_script(
+//            'isotope-js',
+//            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/isotope' . $suffix . '.js',
+//            array('jquery'),
+//            PIXEREX_ELEMENTS_VERSION,
+//            true
+//        );
+//
+//        wp_register_script(
+//            'modal-js',
+//            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/modal' . $suffix . '.js',
+//            array('jquery'),
+//            PIXEREX_ELEMENTS_VERSION,
+//            true
+//        );
+//
+//        wp_register_script(
+//            'pixerex-maps-js',
+//            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/pixerex-maps' . $suffix . '.js',
+//            array( 'jquery', 'pixerex-maps-api-js' ),
+//            PIXEREX_ELEMENTS_VERSION,
+//            true
+//        );
+//
+//       wp_register_script(
+//           'slimscroll-js',
+//           PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/jquery-slimscroll' . $suffix . '.js',
+//           array('jquery'),
+//           PIXEREX_ELEMENTS_VERSION,
+//           true
+//       );
+//
+//       wp_register_script(
+//           'iscroll-js',
+//           PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/iscroll' . $suffix . '.js',
+//           array('jquery'),
+//           PIXEREX_ELEMENTS_VERSION,
+//           true
+//       );
+//
+//       if( $maps_settings['pixerex-map-cluster'] ) {
+//            wp_register_script(
+//                'google-maps-cluster',
+//                'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js',
+//                array(),
+//                PIXEREX_ELEMENTS_VERSION,
+//                false
+//            );
+//        }
+//
+//        if( $maps_settings['pixerex-map-disable-api'] && '1' != $maps_settings['pixerex-map-api'] ) {
+//			$api = sprintf ( 'https://maps.googleapis.com/maps/api/js?key=%1$s&language=%2$s', $maps_settings['pixerex-map-api'], $locale );
+//            wp_register_script(
+//                'pixerex-maps-api-js',
+//                $api,
+//                array(),
+//                PIXEREX_ELEMENTS_VERSION,
+//                false
+//            );
+//        }
+//
+//        $data = array(
+//            'ajaxurl'       => esc_url( admin_url( 'admin-ajax.php' ) )
+//        );
+//
+//		wp_localize_script( 'pixerex-elements-js', 'PixerexSettings', $data );
         
     }
     
@@ -286,38 +285,6 @@ class Addons_Integration {
      */
     public function enqueue_editor_scripts() {
 		
-		$map_enabled = isset( self::$modules['pixerex-maps'] ) ? self::$modules['pixerex-maps'] : 1;
-        
-		if( $map_enabled ) {
-		
-        	$pixerex_maps_api = self::$maps['pixerex-map-api'];
-        
-        	$locale = isset ( self::$maps['pixerex-map-locale'] ) ? self::$maps['pixerex-map-locale'] : "en";
-
-        	$pixerex_maps_disable_api = self::$maps['pixerex-map-disable-api'];
-        
-        	if ( $pixerex_maps_disable_api && '1' != $pixerex_maps_api ) {
-                
-				$api = sprintf ( 'https://maps.googleapis.com/maps/api/js?key=%1$s&language=%2$s', $pixerex_maps_api, $locale );
-            	wp_enqueue_script(
-                	'pixerex-maps-api-js',
-                	$api,
-                	array(),
-                	PIXEREX_ELEMENTS_VERSION,
-                	false
-            	);
-
-        	}
-
-			wp_enqueue_script(
-				'pa-maps-finder',
-				PIXEREX_ELEMENTS_URL . 'assets/editor/js/pa-maps-finder.js',
-				array( 'jquery' ),
-				PIXEREX_ELEMENTS_VERSION,
-				true
-			);
-
-        }
 
     }
     

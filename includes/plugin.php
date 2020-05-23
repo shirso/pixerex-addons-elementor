@@ -30,7 +30,6 @@ class Plugin {
     
     private function init_components() {
 
-        new Settings\Maps();
 		new Settings\Modules_Settings();
 		
 	}
