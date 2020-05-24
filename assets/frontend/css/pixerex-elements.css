@@ -1,7 +1,75 @@
-@font-face {
-    font-family: 'pa-elements';
-    src: url('../../editor/fonts/pa-elements.eot?6nhz6k');
-    src: url('../../editor/fonts/pa-elements.eot?6nhz6k#iefix') format('embedded-opentype'), url('../../editor/fonts/pa-elements.ttf?6nhz6k') format('truetype'), url('../../editor/fonts/pa-elements.woff?6nhz6k') format('woff'), url('../../editor/fonts/pa-elements.svg?6nhz6k#pa-elements') format('svg');
-    font-weight: normal;
-    font-style: normal;
+.ha-badge {
+    padding: .475rem 1.1rem;
+    max-width: 100%;
+    border-radius: 50px;
+    background-color: #fff;
+    font-size: 12px;
+}
+.ha-badge--top-left {
+    top: 1rem;
+    left: 1rem;
+}
+.ha-badge--top-center {
+    top: 1rem;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.ha-badge--top-right {
+    top: 1rem;
+    right: 1rem;
+}
+.ha-badge--middle-left {
+    top: 50%;
+    left: 1rem;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.ha-badge--middle-center {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.ha-badge--middle-right {
+    top: 50%;
+    right: 1rem;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.ha-badge--bottom-left {
+    bottom: 1rem;
+    left: 1rem;
+}
+.ha-badge--bottom-center {
+    bottom: 1rem;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.ha-badge--bottom-right {
+    right: 1rem;
+    bottom: 1rem;
+}
+.ha-card > .elementor-widget-container,
+.ha-infobox > .elementor-widget-container,
+.ha-icon-box > .elementor-widget-container,
+.ha-member > .elementor-widget-container,
+.ha-review > .elementor-widget-container,
+.ha-image-compare > .elementor-widget-container,
+.ha-pricing-table > .elementor-widget-container {
+    border-radius: .5rem;
+    background-color: #fff;
+    box-shadow: 0 .2rem 2.8rem rgba(36, 36, 36, .1);
+}
+
+.ha-logo-grid-wrapper:after {
+    display: block;
+    clear: both;
+    content: "";
 }

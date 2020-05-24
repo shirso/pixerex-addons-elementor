@@ -35,6 +35,9 @@ class Pixerex_Card extends Widget_Base {
     public function get_categories() {
         return [ 'pixerex-elements' ];
     }
+    public function get_style_depends() {
+        return ['pixerex-elements','pixerex-card-element'];
+    }
     protected function _register_controls() {
         $this->start_controls_section(
             '_section_image',
@@ -309,6 +312,691 @@ class Pixerex_Card extends Widget_Base {
         );
 
         $this->end_controls_section();
+        $this->start_controls_section(
+            'pixerex_section_image_style',
+            [
+                'label' => __( 'Image', 'happy-elementor-addons' ),
+                'tab'   => Controls_Manager::TAB_STYLE,
+            ]
+        );
+        $this->add_responsive_control(
+            'image_width',
+            [
+                'label' => __( 'Width', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => [ '%', 'px' ],
+                'desktop_default' => [
+                    'unit' => '%',
+                ],
+                'tablet_default' => [
+                    'unit' => '%',
+                ],
+                'mobile_default' => [
+                    'unit' => '%',
+                ],
+                'range' => [
+                    '%' => [
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                    'px' => [
+                        'min' => 50,
+                        'max' => 1000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-figure' => 'flex: 0 0 {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}}.ha-card--right .ha-card-body, {{WRAPPER}}.ha-card--left .ha-card-body' => 'flex: 0 0 calc(100% - {{SIZE || 50}}{{UNIT}}); max-width: calc(100% - {{SIZE || 50}}{{UNIT}});',
+                ],
+            ]
+        );
+        $this->add_responsive_control(
+            'image_height',
+            [
+                'label' => __( 'Height', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => [ 'px' ],
+                'range' => [
+                    'px' => [
+                        'min' => 50,
+                        'max' => 1000,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-figure' => 'height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+        $this->add_control(
+            'offset_toggle',
+            [
+                'label' => __( 'Offset', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::POPOVER_TOGGLE,
+                'label_off' => __( 'None', 'happy-elementor-addons' ),
+                'label_on' => __( 'Custom', 'happy-elementor-addons' ),
+                'return_value' => 'yes',
+            ]
+        );
+        $this->start_popover();
+        $this->add_responsive_control(
+            'image_offset_x',
+            [
+                'label' => __( 'Offset Left', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'condition' => [
+                    'offset_toggle' => 'yes'
+                ],
+                'range' => [
+                    'px' => [
+                        'min' => -1000,
+                        'max' => 1000,
+                    ],
+                ],
+                'render_type' => 'ui'
+            ]
+        );
+
+        $this->add_responsive_control(
+            'image_offset_y',
+            [
+                'label' => __( 'Offset Top', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'condition' => [
+                    'offset_toggle' => 'yes'
+                ],
+                'range' => [
+                    'px' => [
+                        'min' => -1000,
+                        'max' => 1000,
+                    ],
+                ],
+                'selectors' => [
+                    // Left image position styles
+                    '(desktop){{WRAPPER}}.ha-card--left .ha-card-body' => 'margin-left: {{image_offset_x.SIZE || 0}}{{UNIT}}; flex: 0 0 calc((100% - {{image_width.SIZE || 50}}{{image_width.UNIT}}) + (-1 * {{image_offset_x.SIZE || 0}}{{UNIT}})); max-width: calc((100% - {{image_width.SIZE || 50}}{{image_width.UNIT}}) + (-1 * {{image_offset_x.SIZE || 0}}{{UNIT}}));',
+                    '(tablet){{WRAPPER}}.ha-card--left .ha-card-body' => 'margin-left: {{image_offset_x_tablet.SIZE || 0}}{{UNIT}}; flex: 0 0 calc((100% - {{image_width_tablet.SIZE || 50}}{{image_width_tablet.UNIT}}) + (-1 * {{image_offset_x_tablet.SIZE || 0}}{{UNIT}})); max-width: calc((100% - {{image_width_tablet.SIZE || 50}}{{image_width_tablet.UNIT}}) + (-1 * {{image_offset_x_tablet.SIZE || 0}}{{UNIT}}));',
+                    '(mobile){{WRAPPER}}.ha-card--left .ha-card-body' => 'margin-left: {{image_offset_x_mobile.SIZE || 0}}{{UNIT}}; flex: 0 0 calc((100% - {{image_width_mobile.SIZE || 50}}{{image_width_mobile.UNIT}}) + (-1 * {{image_offset_x_mobile.SIZE || 0}}{{UNIT}})); max-width: calc((100% - {{image_width_mobile.SIZE || 50}}{{image_width_mobile.UNIT}}) + (-1 * {{image_offset_x_mobile.SIZE || 0}}{{UNIT}}));',
+                    // Image right position styles
+                    '(desktop){{WRAPPER}}.ha-card--right .ha-card-body' => 'margin-right: calc(-1 * {{image_offset_x.SIZE || 0}}{{UNIT}}); flex: 0 0 calc((100% - {{image_width.SIZE || 50}}{{image_width.UNIT}}) + {{image_offset_x.SIZE || 0}}{{UNIT}}); max-width: calc((100% - {{image_width.SIZE || 50}}{{image_width.UNIT}}) + {{image_offset_x.SIZE || 0}}{{UNIT}});',
+                    '(tablet){{WRAPPER}}.ha-card--right .ha-card-body' => 'margin-right: calc(-1 * {{image_offset_x_tablet.SIZE || 0}}{{UNIT}}); flex: 0 0 calc((100% - {{image_width_tablet.SIZE || 50}}{{image_width_tablet.UNIT}}) + {{image_offset_x_tablet.SIZE || 0}}{{UNIT}}); max-width: calc((100% - {{image_width_tablet.SIZE || 50}}{{image_width_tablet.UNIT}}) + {{image_offset_x_tablet.SIZE || 0}}{{UNIT}});',
+                    '(mobile){{WRAPPER}}.ha-card--right .ha-card-body' => 'margin-right: calc(-1 * {{image_offset_x_mobile.SIZE || 0}}{{UNIT}}); flex: 0 0 calc((100% - {{image_width_mobile.SIZE || 50}}{{image_width_mobile.UNIT}}) + {{image_offset_x_mobile.SIZE || 0}}{{UNIT}}); max-width: calc((100% - {{image_width_mobile.SIZE || 50}}{{image_width_mobile.UNIT}}) + {{image_offset_x_mobile.SIZE || 0}}{{UNIT}});',
+                    // Image translate styles
+                    '(desktop){{WRAPPER}} .ha-card-figure' => '-ms-transform: translate({{image_offset_x.SIZE || 0}}{{UNIT}}, {{image_offset_y.SIZE || 0}}{{UNIT}}); -webkit-transform: translate({{image_offset_x.SIZE || 0}}{{UNIT}}, {{image_offset_y.SIZE || 0}}{{UNIT}}); transform: translate({{image_offset_x.SIZE || 0}}{{UNIT}}, {{image_offset_y.SIZE || 0}}{{UNIT}});',
+                    '(tablet){{WRAPPER}} .ha-card-figure' => '-ms-transform: translate({{image_offset_x_tablet.SIZE || 0}}{{UNIT}}, {{image_offset_y_tablet.SIZE || 0}}{{UNIT}}); -webkit-transform: translate({{image_offset_x_tablet.SIZE || 0}}{{UNIT}}, {{image_offset_y_tablet.SIZE || 0}}{{UNIT}}); transform: translate({{image_offset_x_tablet.SIZE || 0}}{{UNIT}}, {{image_offset_y_tablet.SIZE || 0}}{{UNIT}});',
+                    '(mobile){{WRAPPER}} .ha-card-figure' => '-ms-transform: translate({{image_offset_x_mobile.SIZE || 0}}{{UNIT}}, {{image_offset_y_mobile.SIZE || 0}}{{UNIT}}); -webkit-transform: translate({{image_offset_x_mobile.SIZE || 0}}{{UNIT}}, {{image_offset_y_mobile.SIZE || 0}}{{UNIT}}); transform: translate({{image_offset_x_mobile.SIZE || 0}}{{UNIT}}, {{image_offset_y_mobile.SIZE || 0}}{{UNIT}});',
+                    // Card body styles
+                    '{{WRAPPER}}.ha-card--top .ha-card-body' => 'margin-top: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+        $this->end_popover();
+        $this->add_responsive_control(
+            'image_padding',
+            [
+                'label' => __( 'Padding', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-figure img' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name' => 'image_border',
+                'selector' => '{{WRAPPER}} .ha-card-figure img',
+            ]
+        );
+
+        $this->add_responsive_control(
+            'image_border_radius',
+            [
+                'label' => __( 'Border Radius', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-figure img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+        $this->add_group_control(
+            Group_Control_Box_Shadow::get_type(),
+            [
+                'name' => 'image_box_shadow',
+                'exclude' => [
+                    'box_shadow_position',
+                ],
+                'selector' => '{{WRAPPER}} .ha-card-figure img',
+                'separator' => 'after'
+            ]
+        );
+
+        $this->start_controls_tabs(
+            '_tabs_image_effects',
+            [
+                'separator' => 'before'
+            ]
+        );
+
+        $this->start_controls_tab(
+            '_tab_image_effects_normal',
+            [
+                'label' => __( 'Normal', 'happy-elementor-addons' ),
+            ]
+        );
+
+        $this->add_control(
+            'image_opacity',
+            [
+                'label' => __( 'Opacity', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'max' => 1,
+                        'min' => 0.10,
+                        'step' => 0.01,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-figure img' => 'opacity: {{SIZE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Css_Filter::get_type(),
+            [
+                'name' => 'image_css_filters',
+                'selector' => '{{WRAPPER}} .ha-card-figure img',
+            ]
+        );
+
+        $this->end_controls_tab();
+
+        $this->start_controls_tab( 'hover',
+            [
+                'label' => __( 'Hover', 'happy-elementor-addons' ),
+            ]
+        );
+
+        $this->add_control(
+            'image_opacity_hover',
+            [
+                'label' => __( 'Opacity', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'max' => 1,
+                        'min' => 0.10,
+                        'step' => 0.01,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-figure:hover img' => 'opacity: {{SIZE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Css_Filter::get_type(),
+            [
+                'name' => 'image_css_filters_hover',
+                'selector' => '{{WRAPPER}} .ha-card-figure:hover img',
+            ]
+        );
+
+        $this->add_control(
+            'image_background_hover_transition',
+            [
+                'label' => __( 'Transition Duration', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'max' => 3,
+                        'step' => 0.1,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-figure img' => 'transition-duration: {{SIZE}}s;',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'hover_animation',
+            [
+                'label' => __( 'Hover Animation', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::HOVER_ANIMATION,
+                'label_block' => true,
+            ]
+        );
+
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            '_section_style_badge',
+            [
+                'label' => __( 'Badge', 'happy-elementor-addons' ),
+                'tab'   => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_control(
+            'badge_position',
+            [
+                'label' => __( 'Position', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SELECT,
+                'options' => [
+                    'top-left'  => __( 'Top Left', 'happy-elementor-addons' ),
+                    'top-center'  => __( 'Top Center', 'happy-elementor-addons' ),
+                    'top-right'  => __( 'Top Right', 'happy-elementor-addons' ),
+                    'middle-left'  => __( 'Middle Left', 'happy-elementor-addons' ),
+                    'middle-center'  => __( 'Middle Center', 'happy-elementor-addons' ),
+                    'middle-right'  => __( 'Middle Right', 'happy-elementor-addons' ),
+                    'bottom-left'  => __( 'Bottom Left', 'happy-elementor-addons' ),
+                    'bottom-center'  => __( 'Bottom Center', 'happy-elementor-addons' ),
+                    'bottom-right'  => __( 'Bottom Right', 'happy-elementor-addons' ),
+                ],
+                'default' => 'top-right',
+            ]
+        );
+
+        $this->add_control(
+            'badge_offset_toggle',
+            [
+                'label' => __( 'Offset', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::POPOVER_TOGGLE,
+                'label_off' => __( 'None', 'happy-elementor-addons' ),
+                'label_on' => __( 'Custom', 'happy-elementor-addons' ),
+                'return_value' => 'yes',
+            ]
+        );
+
+        $this->start_popover();
+
+        $this->add_responsive_control(
+            'badge_offset_x',
+            [
+                'label' => __( 'Offset Left', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'condition' => [
+                    'badge_offset_toggle' => 'yes'
+                ],
+                'range' => [
+                    'px' => [
+                        'min' => -1000,
+                        'max' => 1000,
+                    ],
+                ],
+                'render_type' => 'ui'
+            ]
+        );
+
+        $this->add_responsive_control(
+            'badge_offset_y',
+            [
+                'label' => __( 'Offset Top', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'condition' => [
+                    'badge_offset_toggle' => 'yes'
+                ],
+                'range' => [
+                    'px' => [
+                        'min' => -1000,
+                        'max' => 1000,
+                    ],
+                ],
+                'selectors' => [
+                    '(desktop){{WRAPPER}} .ha-badge' => '-ms-transform: translate({{badge_offset_x.SIZE || 0}}{{UNIT}}, {{badge_offset_y.SIZE || 0}}{{UNIT}}); -webkit-transform: translate({{badge_offset_x.SIZE || 0}}{{UNIT}}, {{badge_offset_y.SIZE || 0}}{{UNIT}}); transform: translate({{badge_offset_x.SIZE || 0}}{{UNIT}}, {{badge_offset_y.SIZE || 0}}{{UNIT}});',
+                    '(tablet){{WRAPPER}} .ha-badge' => '-ms-transform: translate({{badge_offset_x_tablet.SIZE || 0}}{{UNIT}}, {{badge_offset_y_tablet.SIZE || 0}}{{UNIT}}); -webkit-transform: translate({{badge_offset_x_tablet.SIZE || 0}}{{UNIT}}, {{badge_offset_y_tablet.SIZE || 0}}{{UNIT}}); transform: translate({{badge_offset_x_tablet.SIZE || 0}}{{UNIT}}, {{badge_offset_y_tablet.SIZE || 0}}{{UNIT}});',
+                    '(mobile){{WRAPPER}} .ha-badge' => '-ms-transform: translate({{badge_offset_x_mobile.SIZE || 0}}{{UNIT}}, {{badge_offset_y_mobile.SIZE || 0}}{{UNIT}}); -webkit-transform: translate({{badge_offset_x_mobile.SIZE || 0}}{{UNIT}}, {{badge_offset_y_mobile.SIZE || 0}}{{UNIT}}); transform: translate({{badge_offset_x_mobile.SIZE || 0}}{{UNIT}}, {{badge_offset_y_mobile.SIZE || 0}}{{UNIT}});',
+                ],
+            ]
+        );
+        $this->end_popover();
+
+        $this->add_responsive_control(
+            'badge_padding',
+            [
+                'label' => __( 'Padding', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-badge' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'badge_color',
+            [
+                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .ha-badge' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'badge_bg_color',
+            [
+                'label' => __( 'Background Color', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .ha-badge' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name' => 'badge_border',
+                'selector' => '{{WRAPPER}} .ha-badge',
+            ]
+        );
+
+        $this->add_responsive_control(
+            'badge_border_radius',
+            [
+                'label' => __( 'Border Radius', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-badge' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Box_Shadow::get_type(),
+            [
+                'name' => 'badge_box_shadow',
+                'exclude' => [
+                    'box_shadow_position',
+                ],
+                'selector' => '{{WRAPPER}} .ha-badge',
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'badge_typography',
+                'label' => __( 'Typography', 'happy-elementor-addons' ),
+                'exclude' => [
+                    'line_height'
+                ],
+                'default' => [
+                    'font_size' => ['']
+                ],
+                'selector' => '{{WRAPPER}} .ha-badge',
+                'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            '_section_style_content',
+            [
+                'label' => __( 'Title & Description', 'happy-elementor-addons' ),
+                'tab'   => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_responsive_control(
+            'content_padding',
+            [
+                'label' => __( 'Content Padding', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-body' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            '_heading_title',
+            [
+                'type' => Controls_Manager::HEADING,
+                'label' => __( 'Title', 'happy-elementor-addons' ),
+                'separator' => 'before'
+            ]
+        );
+
+        $this->add_responsive_control(
+            'title_spacing',
+            [
+                'label' => __( 'Bottom Spacing', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'title_color',
+            [
+                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-title' => 'color: {{VALUE}}',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'title_typography',
+                'label' => __( 'Typography', 'happy-elementor-addons' ),
+                'selector' => '{{WRAPPER}} .ha-card-title',
+                'scheme' => Scheme_Typography::TYPOGRAPHY_2,
+            ]
+        );
+
+        $this->add_control(
+            '_heading_description',
+            [
+                'type' => Controls_Manager::HEADING,
+                'label' => __( 'Description', 'happy-elementor-addons' ),
+                'separator' => 'before'
+            ]
+        );
+
+        $this->add_responsive_control(
+            'description_spacing',
+            [
+                'label' => __( 'Bottom Spacing', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-text' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'description_color',
+            [
+                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .ha-card-text' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'description_typography',
+                'label' => __( 'Typography', 'happy-elementor-addons' ),
+                'selector' => '{{WRAPPER}} .ha-card-text',
+                'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            '_section_style_button',
+            [
+                'label' => __( 'Button', 'happy-elementor-addons' ),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_responsive_control(
+            'button_padding',
+            [
+                'label' => __( 'Padding', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'button_typography',
+                'selector' => '{{WRAPPER}} .ha-btn',
+                'scheme' => Scheme_Typography::TYPOGRAPHY_4,
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name' => 'button_border',
+                'selector' => '{{WRAPPER}} .ha-btn',
+            ]
+        );
+
+        $this->add_control(
+            'button_border_radius',
+            [
+                'label' => __( 'Border Radius', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Box_Shadow::get_type(),
+            [
+                'name' => 'button_box_shadow',
+                'selector' => '{{WRAPPER}} .ha-btn',
+            ]
+        );
+
+        $this->add_control(
+            'hr',
+            [
+                'type' => Controls_Manager::DIVIDER,
+                'style' => 'thick',
+            ]
+        );
+
+        $this->start_controls_tabs( '_tabs_button' );
+
+        $this->start_controls_tab(
+            '_tab_button_normal',
+            [
+                'label' => __( 'Normal', 'happy-elementor-addons' ),
+            ]
+        );
+
+        $this->add_control(
+            'button_color',
+            [
+                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'default' => '',
+                'selectors' => [
+                    '{{WRAPPER}} .ha-btn' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_bg_color',
+            [
+                'label' => __( 'Background Color', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .ha-btn' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_tab();
+
+        $this->start_controls_tab(
+            '_tab_button_hover',
+            [
+                'label' => __( 'Hover', 'happy-elementor-addons' ),
+            ]
+        );
+
+        $this->add_control(
+            'button_hover_color',
+            [
+                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .ha-btn:hover, {{WRAPPER}} .ha-btn:focus' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_hover_bg_color',
+            [
+                'label' => __( 'Background Color', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .ha-btn:hover, {{WRAPPER}} .ha-btn:focus' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_hover_border_color',
+            [
+                'label' => __( 'Border Color', 'happy-elementor-addons' ),
+                'type' => Controls_Manager::COLOR,
+                'condition' => [
+                    'button_border_border!' => '',
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .ha-btn:hover, {{WRAPPER}} .ha-btn:focus' => 'border-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+        $this->end_controls_section();
+
     }
     protected function register_style_controls() {
         $this->start_controls_section(

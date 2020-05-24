@@ -47,11 +47,44 @@ class Addons_Integration {
 
         // Placeholder image replacement
         //add_filter( 'elementor/utils/get_placeholder_image_src', [ __CLASS__, 'set_placeholder_image' ] );
+
+        // Paragraph toolbar registration
+        add_filter( 'elementor/editor/localize_settings', [ $this, 'add_inline_editing_intermediate_toolbar' ] );
         
     }
 
 
-    
+
+    /**
+     * Register inline editing paragraph toolbar
+     *
+     * @param array $config
+     * @return array
+     */
+    public static function add_inline_editing_intermediate_toolbar( $config ) {
+        if ( ! isset( $config['inlineEditing'] ) ) {
+            return $config;
+        }
+
+        $tools = [
+            'bold',
+            'underline',
+            'italic',
+            'createlink',
+        ];
+
+        if ( isset( $config['inlineEditing']['toolbar'] ) ) {
+            $config['inlineEditing']['toolbar']['intermediate'] = $tools;
+        } else {
+            $config['inlineEditing'] = [
+                'toolbar' => [
+                    'intermediate' => $tools,
+                ],
+            ];
+        }
+
+        return $config;
+    }
     /**
     * Loads plugin icons font
     * @since 1.0.0
@@ -102,7 +135,15 @@ class Addons_Integration {
             PIXEREX_ELEMENTS_VERSION,
             'all'
         );
-        
+        /***Card Style**/
+
+        wp_register_style(
+            'pixerex-card-element',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/card/' . $dir . '/style'  . $suffix . '.css',
+            array(),
+            PIXEREX_ELEMENTS_VERSION,
+            'all'
+        );
     }
     
     /**
