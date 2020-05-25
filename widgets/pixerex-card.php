@@ -3,7 +3,6 @@ namespace PixerexElements\Widgets;
 
 use PixerexElements\Helper_Functions;
 use PixerexElements\Includes;
-use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Control_Media;
 use Elementor\Controls_Manager;
@@ -14,26 +13,19 @@ use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Group_Control_Text_Shadow;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
-class Pixerex_Card extends Widget_Base {
+class Pixerex_Card extends Base {
     protected $templateInstance;
     public function getTemplateInstance() {
         return $this->templateInstance = Includes\pixerex_Template_Tags::getInstance();
-    }
-    public function get_name() {
-        return 'pixerex-elements-card';
     }
     public function get_title() {
         return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __('Card', 'pixerex-elements') );
     }
     public function get_icon() {
         return 'px px-card';
-    }
-    public function get_categories() {
-        return [ 'pixerex-elements' ];
     }
     public function get_style_depends() {
         return ['pixerex-elements','pixerex-card-element'];
@@ -315,14 +307,14 @@ class Pixerex_Card extends Widget_Base {
         $this->start_controls_section(
             'pixerex_section_image_style',
             [
-                'label' => __( 'Image', 'happy-elementor-addons' ),
+                'label' => __( 'Image', 'pixerex-elements' ),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
         $this->add_responsive_control(
             'image_width',
             [
-                'label' => __( 'Width', 'happy-elementor-addons' ),
+                'label' => __( 'Width', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ '%', 'px' ],
                 'desktop_default' => [
@@ -353,7 +345,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'image_height',
             [
-                'label' => __( 'Height', 'happy-elementor-addons' ),
+                'label' => __( 'Height', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => [ 'px' ],
                 'range' => [
@@ -370,10 +362,10 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'offset_toggle',
             [
-                'label' => __( 'Offset', 'happy-elementor-addons' ),
+                'label' => __( 'Offset', 'pixerex-elements' ),
                 'type' => Controls_Manager::POPOVER_TOGGLE,
-                'label_off' => __( 'None', 'happy-elementor-addons' ),
-                'label_on' => __( 'Custom', 'happy-elementor-addons' ),
+                'label_off' => __( 'None', 'pixerex-elements' ),
+                'label_on' => __( 'Custom', 'pixerex-elements' ),
                 'return_value' => 'yes',
             ]
         );
@@ -381,7 +373,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'image_offset_x',
             [
-                'label' => __( 'Offset Left', 'happy-elementor-addons' ),
+                'label' => __( 'Offset Left', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
                 'condition' => [
@@ -400,7 +392,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'image_offset_y',
             [
-                'label' => __( 'Offset Top', 'happy-elementor-addons' ),
+                'label' => __( 'Offset Top', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
                 'condition' => [
@@ -434,7 +426,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'image_padding',
             [
-                'label' => __( 'Padding', 'happy-elementor-addons' ),
+                'label' => __( 'Padding', 'pixerex-elements' ),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', '%' ],
                 'selectors' => [
@@ -453,7 +445,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'image_border_radius',
             [
-                'label' => __( 'Border Radius', 'happy-elementor-addons' ),
+                'label' => __( 'Border Radius', 'pixerex-elements' ),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%' ],
                 'selectors' => [
@@ -483,14 +475,14 @@ class Pixerex_Card extends Widget_Base {
         $this->start_controls_tab(
             '_tab_image_effects_normal',
             [
-                'label' => __( 'Normal', 'happy-elementor-addons' ),
+                'label' => __( 'Normal', 'pixerex-elements' ),
             ]
         );
 
         $this->add_control(
             'image_opacity',
             [
-                'label' => __( 'Opacity', 'happy-elementor-addons' ),
+                'label' => __( 'Opacity', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'range' => [
                     'px' => [
@@ -517,14 +509,14 @@ class Pixerex_Card extends Widget_Base {
 
         $this->start_controls_tab( 'hover',
             [
-                'label' => __( 'Hover', 'happy-elementor-addons' ),
+                'label' => __( 'Hover', 'pixerex-elements' ),
             ]
         );
 
         $this->add_control(
             'image_opacity_hover',
             [
-                'label' => __( 'Opacity', 'happy-elementor-addons' ),
+                'label' => __( 'Opacity', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'range' => [
                     'px' => [
@@ -550,7 +542,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'image_background_hover_transition',
             [
-                'label' => __( 'Transition Duration', 'happy-elementor-addons' ),
+                'label' => __( 'Transition Duration', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'range' => [
                     'px' => [
@@ -567,7 +559,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'hover_animation',
             [
-                'label' => __( 'Hover Animation', 'happy-elementor-addons' ),
+                'label' => __( 'Hover Animation', 'pixerex-elements' ),
                 'type' => Controls_Manager::HOVER_ANIMATION,
                 'label_block' => true,
             ]
@@ -581,7 +573,7 @@ class Pixerex_Card extends Widget_Base {
         $this->start_controls_section(
             '_section_style_badge',
             [
-                'label' => __( 'Badge', 'happy-elementor-addons' ),
+                'label' => __( 'Badge', 'pixerex-elements' ),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -589,18 +581,18 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'badge_position',
             [
-                'label' => __( 'Position', 'happy-elementor-addons' ),
+                'label' => __( 'Position', 'pixerex-elements' ),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'top-left'  => __( 'Top Left', 'happy-elementor-addons' ),
-                    'top-center'  => __( 'Top Center', 'happy-elementor-addons' ),
-                    'top-right'  => __( 'Top Right', 'happy-elementor-addons' ),
-                    'middle-left'  => __( 'Middle Left', 'happy-elementor-addons' ),
-                    'middle-center'  => __( 'Middle Center', 'happy-elementor-addons' ),
-                    'middle-right'  => __( 'Middle Right', 'happy-elementor-addons' ),
-                    'bottom-left'  => __( 'Bottom Left', 'happy-elementor-addons' ),
-                    'bottom-center'  => __( 'Bottom Center', 'happy-elementor-addons' ),
-                    'bottom-right'  => __( 'Bottom Right', 'happy-elementor-addons' ),
+                    'top-left'  => __( 'Top Left', 'pixerex-elements' ),
+                    'top-center'  => __( 'Top Center', 'pixerex-elements' ),
+                    'top-right'  => __( 'Top Right', 'pixerex-elements' ),
+                    'middle-left'  => __( 'Middle Left', 'pixerex-elements' ),
+                    'middle-center'  => __( 'Middle Center', 'pixerex-elements' ),
+                    'middle-right'  => __( 'Middle Right', 'pixerex-elements' ),
+                    'bottom-left'  => __( 'Bottom Left', 'pixerex-elements' ),
+                    'bottom-center'  => __( 'Bottom Center', 'pixerex-elements' ),
+                    'bottom-right'  => __( 'Bottom Right', 'pixerex-elements' ),
                 ],
                 'default' => 'top-right',
             ]
@@ -609,10 +601,10 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'badge_offset_toggle',
             [
-                'label' => __( 'Offset', 'happy-elementor-addons' ),
+                'label' => __( 'Offset', 'pixerex-elements' ),
                 'type' => Controls_Manager::POPOVER_TOGGLE,
-                'label_off' => __( 'None', 'happy-elementor-addons' ),
-                'label_on' => __( 'Custom', 'happy-elementor-addons' ),
+                'label_off' => __( 'None', 'pixerex-elements' ),
+                'label_on' => __( 'Custom', 'pixerex-elements' ),
                 'return_value' => 'yes',
             ]
         );
@@ -622,7 +614,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'badge_offset_x',
             [
-                'label' => __( 'Offset Left', 'happy-elementor-addons' ),
+                'label' => __( 'Offset Left', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
                 'condition' => [
@@ -641,7 +633,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'badge_offset_y',
             [
-                'label' => __( 'Offset Top', 'happy-elementor-addons' ),
+                'label' => __( 'Offset Top', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
                 'condition' => [
@@ -665,7 +657,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'badge_padding',
             [
-                'label' => __( 'Padding', 'happy-elementor-addons' ),
+                'label' => __( 'Padding', 'pixerex-elements' ),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', '%' ],
                 'selectors' => [
@@ -677,7 +669,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'badge_color',
             [
-                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'label' => __( 'Text Color', 'pixerex-elements' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .ha-badge' => 'color: {{VALUE}};',
@@ -688,7 +680,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'badge_bg_color',
             [
-                'label' => __( 'Background Color', 'happy-elementor-addons' ),
+                'label' => __( 'Background Color', 'pixerex-elements' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .ha-badge' => 'background-color: {{VALUE}};',
@@ -707,7 +699,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'badge_border_radius',
             [
-                'label' => __( 'Border Radius', 'happy-elementor-addons' ),
+                'label' => __( 'Border Radius', 'pixerex-elements' ),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%' ],
                 'selectors' => [
@@ -731,7 +723,7 @@ class Pixerex_Card extends Widget_Base {
             Group_Control_Typography::get_type(),
             [
                 'name' => 'badge_typography',
-                'label' => __( 'Typography', 'happy-elementor-addons' ),
+                'label' => __( 'Typography', 'pixerex-elements' ),
                 'exclude' => [
                     'line_height'
                 ],
@@ -748,7 +740,7 @@ class Pixerex_Card extends Widget_Base {
         $this->start_controls_section(
             '_section_style_content',
             [
-                'label' => __( 'Title & Description', 'happy-elementor-addons' ),
+                'label' => __( 'Title & Description', 'pixerex-elements' ),
                 'tab'   => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -756,7 +748,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'content_padding',
             [
-                'label' => __( 'Content Padding', 'happy-elementor-addons' ),
+                'label' => __( 'Content Padding', 'pixerex-elements' ),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', '%' ],
                 'selectors' => [
@@ -769,7 +761,7 @@ class Pixerex_Card extends Widget_Base {
             '_heading_title',
             [
                 'type' => Controls_Manager::HEADING,
-                'label' => __( 'Title', 'happy-elementor-addons' ),
+                'label' => __( 'Title', 'pixerex-elements' ),
                 'separator' => 'before'
             ]
         );
@@ -777,7 +769,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'title_spacing',
             [
-                'label' => __( 'Bottom Spacing', 'happy-elementor-addons' ),
+                'label' => __( 'Bottom Spacing', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
                 'selectors' => [
@@ -789,7 +781,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'title_color',
             [
-                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'label' => __( 'Text Color', 'pixerex-elements' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .ha-card-title' => 'color: {{VALUE}}',
@@ -801,7 +793,7 @@ class Pixerex_Card extends Widget_Base {
             Group_Control_Typography::get_type(),
             [
                 'name' => 'title_typography',
-                'label' => __( 'Typography', 'happy-elementor-addons' ),
+                'label' => __( 'Typography', 'pixerex-elements' ),
                 'selector' => '{{WRAPPER}} .ha-card-title',
                 'scheme' => Scheme_Typography::TYPOGRAPHY_2,
             ]
@@ -811,7 +803,7 @@ class Pixerex_Card extends Widget_Base {
             '_heading_description',
             [
                 'type' => Controls_Manager::HEADING,
-                'label' => __( 'Description', 'happy-elementor-addons' ),
+                'label' => __( 'Description', 'pixerex-elements' ),
                 'separator' => 'before'
             ]
         );
@@ -819,7 +811,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'description_spacing',
             [
-                'label' => __( 'Bottom Spacing', 'happy-elementor-addons' ),
+                'label' => __( 'Bottom Spacing', 'pixerex-elements' ),
                 'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
                 'selectors' => [
@@ -831,7 +823,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'description_color',
             [
-                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'label' => __( 'Text Color', 'pixerex-elements' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .ha-card-text' => 'color: {{VALUE}};',
@@ -843,7 +835,7 @@ class Pixerex_Card extends Widget_Base {
             Group_Control_Typography::get_type(),
             [
                 'name' => 'description_typography',
-                'label' => __( 'Typography', 'happy-elementor-addons' ),
+                'label' => __( 'Typography', 'pixerex-elements' ),
                 'selector' => '{{WRAPPER}} .ha-card-text',
                 'scheme' => Scheme_Typography::TYPOGRAPHY_3,
             ]
@@ -854,7 +846,7 @@ class Pixerex_Card extends Widget_Base {
         $this->start_controls_section(
             '_section_style_button',
             [
-                'label' => __( 'Button', 'happy-elementor-addons' ),
+                'label' => __( 'Button', 'pixerex-elements' ),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -862,7 +854,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_responsive_control(
             'button_padding',
             [
-                'label' => __( 'Padding', 'happy-elementor-addons' ),
+                'label' => __( 'Padding', 'pixerex-elements' ),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', 'em', '%' ],
                 'selectors' => [
@@ -891,7 +883,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'button_border_radius',
             [
-                'label' => __( 'Border Radius', 'happy-elementor-addons' ),
+                'label' => __( 'Border Radius', 'pixerex-elements' ),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%' ],
                 'selectors' => [
@@ -921,14 +913,14 @@ class Pixerex_Card extends Widget_Base {
         $this->start_controls_tab(
             '_tab_button_normal',
             [
-                'label' => __( 'Normal', 'happy-elementor-addons' ),
+                'label' => __( 'Normal', 'pixerex-elements' ),
             ]
         );
 
         $this->add_control(
             'button_color',
             [
-                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'label' => __( 'Text Color', 'pixerex-elements' ),
                 'type' => Controls_Manager::COLOR,
                 'default' => '',
                 'selectors' => [
@@ -940,7 +932,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'button_bg_color',
             [
-                'label' => __( 'Background Color', 'happy-elementor-addons' ),
+                'label' => __( 'Background Color', 'pixerex-elements' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .ha-btn' => 'background-color: {{VALUE}};',
@@ -953,14 +945,14 @@ class Pixerex_Card extends Widget_Base {
         $this->start_controls_tab(
             '_tab_button_hover',
             [
-                'label' => __( 'Hover', 'happy-elementor-addons' ),
+                'label' => __( 'Hover', 'pixerex-elements' ),
             ]
         );
 
         $this->add_control(
             'button_hover_color',
             [
-                'label' => __( 'Text Color', 'happy-elementor-addons' ),
+                'label' => __( 'Text Color', 'pixerex-elements' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .ha-btn:hover, {{WRAPPER}} .ha-btn:focus' => 'color: {{VALUE}};',
@@ -971,7 +963,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'button_hover_bg_color',
             [
-                'label' => __( 'Background Color', 'happy-elementor-addons' ),
+                'label' => __( 'Background Color', 'pixerex-elements' ),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .ha-btn:hover, {{WRAPPER}} .ha-btn:focus' => 'background-color: {{VALUE}};',
@@ -982,7 +974,7 @@ class Pixerex_Card extends Widget_Base {
         $this->add_control(
             'button_hover_border_color',
             [
-                'label' => __( 'Border Color', 'happy-elementor-addons' ),
+                'label' => __( 'Border Color', 'pixerex-elements' ),
                 'type' => Controls_Manager::COLOR,
                 'condition' => [
                     'button_border_border!' => '',

@@ -50,6 +50,7 @@ class Addons_Integration {
 
         // Paragraph toolbar registration
         add_filter( 'elementor/editor/localize_settings', [ $this, 'add_inline_editing_intermediate_toolbar' ] );
+
         
     }
 
@@ -118,11 +119,11 @@ class Addons_Integration {
         $dir = Helper_Functions::get_styles_dir();
 		$suffix = Helper_Functions::get_assets_suffix();
         
-        $is_rtl = is_rtl() ? '-rtl' : '';
+      //  $is_rtl = is_rtl() ? '-rtl' : '';
         
         wp_register_style(
-            'pa-prettyphoto',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/prettyphoto' . $is_rtl . $suffix . '.css',
+            'pixerex-twentytwenty',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/vendor/twentytwenty/' . 'css/twentytwenty' . '.css',
             array(),
             PIXEREX_ELEMENTS_VERSION,
             'all'
@@ -130,16 +131,27 @@ class Addons_Integration {
         
         wp_register_style(
             'pixerex-elements',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/pixerex-elements' . $is_rtl . $suffix . '.css',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/pixerex-elements' . '.css',
             array(),
             PIXEREX_ELEMENTS_VERSION,
             'all'
         );
+
         /***Card Style**/
 
         wp_register_style(
             'pixerex-card-element',
-            PIXEREX_ELEMENTS_URL . 'assets/frontend/card/' . $dir . '/style'  . $suffix . '.css',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/card/' . $dir . '/style'   . '.css',
+            array(),
+            PIXEREX_ELEMENTS_VERSION,
+            'all'
+        );
+
+        /***Image Compare Style**/
+
+        wp_register_style(
+            'pixerex-image-compare-element',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/image-compare/' . $dir . '/style'  . $suffix . '.css',
             array(),
             PIXEREX_ELEMENTS_VERSION,
             'all'
@@ -179,7 +191,7 @@ class Addons_Integration {
      * @access private
      */
     private function widgets_register() {
-
+        include_once ( PIXEREX_ELEMENTS_PATH . 'includes/base/widget-base.php' );
         $check_component_active = self::$modules;
         
         foreach ( glob( PIXEREX_ELEMENTS_PATH . 'widgets/' . '*.php' ) as $file ) {
@@ -205,18 +217,39 @@ class Addons_Integration {
         
 //        $maps_settings = self::$maps;
 //
-//        $dir = Helper_Functions::get_scripts_dir();
+        $dir = Helper_Functions::get_scripts_dir();
 //		$suffix = Helper_Functions::get_assets_suffix();
 //
 //        $locale = isset ( $maps_settings['pixerex-map-locale'] ) ? $maps_settings['pixerex-map-locale'] : "en";
 //
-//        wp_register_script(
-//            'pixerex-elements-js',
-//            PIXEREX_ELEMENTS_URL . 'assets/frontend/' . $dir . '/pixerex-elements' . $suffix . '.js',
-//            array('jquery'),
-//            PIXEREX_ELEMENTS_VERSION,
-//            true
-//        );
+        wp_register_script(
+            'pixerex-elements-js',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/js/' . '/pixerex-elements'  . '.js',
+            array('jquery'),
+            PIXEREX_ELEMENTS_VERSION,
+            true
+        );
+        wp_register_script(
+            'pixerex-event-move-js',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/vendor/twentytwenty/js'.'/jquery.event.move'  . '.js',
+            array('jquery'),
+            PIXEREX_ELEMENTS_VERSION,
+            true
+        );
+        wp_register_script(
+            'pixerex-twentytwenty-js',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/vendor/twentytwenty/js'.'/jquery.twentytwenty'  . '.js',
+            array('jquery'),
+            PIXEREX_ELEMENTS_VERSION,
+            true
+        );
+        wp_register_script(
+            'pixerex-image-compare-js',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/image-compare/js'.'/main'  . '.js',
+            array('jquery'),
+            PIXEREX_ELEMENTS_VERSION,
+            true
+        );
 //
 //        wp_register_script(
 //            'prettyPhoto-js',
@@ -372,7 +405,6 @@ class Addons_Integration {
      * @return void
      */
     public function register_addon( $file ) {
-        
         $widget_manager = \Elementor\Plugin::instance()->widgets_manager;
         
         $base  = basename( str_replace( '.php', '', $file ) );

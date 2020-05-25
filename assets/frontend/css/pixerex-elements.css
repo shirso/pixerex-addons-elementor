@@ -73,3 +73,99 @@
     clear: both;
     content: "";
 }
+.pixerex-element > .elementor-widget-container {
+    word-wrap: break-word;
+
+    overflow-wrap: break-word;
+}
+.pixerex-element > .elementor-widget-container,
+.pixerex-element > .elementor-widget-container * {
+    box-sizing: border-box;
+}
+
+.pixerex-element img {
+    max-width: 100%;
+    height: auto;
+
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.pixerex-element p:empty {
+    display: none;
+}
+.ha-screen-reader-text {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    border: 0;
+    word-wrap: normal !important;
+
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+}
+
+.ha-has-background-overlay > .elementor-widget-container {
+    position: relative;
+    z-index: 1;
+}
+.ha-has-background-overlay > .elementor-widget-container:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    content: "";
+}
+
+.ha-popup--is-enabled .ha-js-popup,
+.ha-popup--is-enabled .ha-js-popup img {
+    cursor: -webkit-zoom-in !important;
+    cursor:         zoom-in !important;
+}
+
+.mfp-wrap .mfp-close,
+.mfp-wrap .mfp-arrow {
+    background-color: transparent;
+}
+.mfp-wrap .mfp-close:focus,
+.mfp-wrap .mfp-arrow:focus {
+    outline-width: thin;
+}
+.ha-btn {
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+.ha-btn:not(.ha-btn--link) {
+    padding: 15px 25px;
+    border-radius: .25rem;
+    background-color: #562dd4;
+    color: #fff;
+}
+.ha-btn:not(.ha-btn--link):hover,
+.ha-btn:not(.ha-btn--link):focus {
+    background-color: #e2498a;
+}
+.ha-btn.ha-btn--link {
+    color: #562dd4;
+}
+.ha-btn.ha-btn--link:hover,
+.ha-btn.ha-btn--link:focus {
+    color: #e2498a;
+}
+.ha-btn-icon + .ha-btn-text,
+.ha-btn-text + .ha-btn-icon {
+    margin-left: 5px;
+}

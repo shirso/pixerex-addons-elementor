@@ -99,6 +99,6 @@
     border-radius: 0 calc(.5rem - 1px) calc(.5rem - 1px) 0
 }
 
-.ha-card .ha-badge {
+.pixerex-card .ha-badge {
     position: absolute
 }

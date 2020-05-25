@@ -195,8 +195,8 @@ class Helper_Functions {
 
 			self::$script_debug = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
 		}
-
-		return self::$script_debug;
+          return true;
+		//return self::$script_debug;
 	}
     
     /**
@@ -422,7 +422,41 @@ class Helper_Functions {
      * @param string $string
      * @return string
      */
-    function ha_kses_intermediate( $string = '' ) {
+    public static function ha_kses_intermediate( $string = '' ) {
         return wp_kses( $string, self::ha_get_allowed_html_tags( 'intermediate' ) );
     }
+    /**
+     * Get elementor instance
+     *
+     * @return \Elementor\Plugin
+     */
+    public static function px_elementor() {
+        return \Elementor\Plugin::instance();
+    }
+    public static function get_setting_value( &$settings, $keys ) {
+        if ( ! is_array( $keys ) ) {
+            $keys = explode( '.', $keys );
+        }
+        if ( is_array( $settings[ $keys[0] ] ) ) {
+            return self::get_setting_value( $settings[ $keys[0] ], array_slice( $keys, 1 ) );
+        }
+        return $settings[ $keys[0] ];
+    }
+    Public static function prepare_data_prop_settings( &$settings, $field_map = [] ) {
+        $data = [];
+        foreach ( $field_map as $key => $data_key ) {
+            $setting_value = self::get_setting_value( $settings, $key );
+            list( $data_field_key, $data_field_type ) = explode( '.', $data_key );
+            $validator = $data_field_type . 'val';
+
+            if ( is_callable( $validator ) ) {
+                $val = call_user_func( $validator, $setting_value );
+            } else {
+                $val = $setting_value;
+            }
+            $data[ $data_field_key ] = $val;
+        }
+        return wp_json_encode( $data );
+    }
+
 }

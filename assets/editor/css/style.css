@@ -142,3 +142,6 @@
 .px-card:before {
     content: "\e938";
 }
+.px-image-compare:before {
+    content: "\e9b7";
+}
