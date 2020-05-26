@@ -145,3 +145,6 @@
 .px-image-compare:before {
     content: "\e9b7";
 }
+.px-image-slider:before {
+    content: "\e9b8";
+}

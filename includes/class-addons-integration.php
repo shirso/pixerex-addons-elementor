@@ -128,6 +128,22 @@ class Addons_Integration {
             PIXEREX_ELEMENTS_VERSION,
             'all'
         );
+
+        wp_register_style(
+            'pixerex-slick',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/vendor/slick/' . 'slick' . '.css',
+            array(),
+            PIXEREX_ELEMENTS_VERSION,
+            'all'
+        );
+        wp_register_style(
+            'pixerex-slick-theme',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/vendor/slick/' . 'slick-theme' . '.css',
+            array(),
+            PIXEREX_ELEMENTS_VERSION,
+            'all'
+        );
+
         
         wp_register_style(
             'pixerex-elements',
@@ -225,7 +241,7 @@ class Addons_Integration {
         wp_register_script(
             'pixerex-elements-js',
             PIXEREX_ELEMENTS_URL . 'assets/frontend/js/' . '/pixerex-elements'  . '.js',
-            array('jquery'),
+            array('imagesloaded','jquery'),
             PIXEREX_ELEMENTS_VERSION,
             true
         );
@@ -244,8 +260,23 @@ class Addons_Integration {
             true
         );
         wp_register_script(
+            'pixerex-slick-js',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/vendor/slick/'.'slick.min'  . '.js',
+            array('jquery'),
+            PIXEREX_ELEMENTS_VERSION,
+            true
+        );
+        wp_register_script(
             'pixerex-image-compare-js',
             PIXEREX_ELEMENTS_URL . 'assets/frontend/image-compare/js'.'/main'  . '.js',
+            array('jquery'),
+            PIXEREX_ELEMENTS_VERSION,
+            true
+        );
+
+        wp_register_script(
+            'pixerex-slider-js',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/slider/js'.'/main'  . '.js',
             array('jquery'),
             PIXEREX_ELEMENTS_VERSION,
             true
