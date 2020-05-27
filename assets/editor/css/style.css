@@ -148,3 +148,6 @@
 .px-image-slider:before {
     content: "\e9b8";
 }
+.px-flip-card1::before {
+    content: "\e98b";
+}

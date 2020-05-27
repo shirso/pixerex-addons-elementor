@@ -172,6 +172,26 @@ class Addons_Integration {
             PIXEREX_ELEMENTS_VERSION,
             'all'
         );
+
+        /***Slider & Carousel Style**/
+
+        wp_register_style(
+            'pixerex-slider-carousel-element',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/slider/' . $dir . '/style'  . $suffix . '.css',
+            array(),
+            PIXEREX_ELEMENTS_VERSION,
+            'all'
+        );
+
+        /***Flip Box Style**/
+
+        wp_register_style(
+            'pixerex-flipbox-element',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/flipbox/' . $dir . '/style'  . $suffix . '.css',
+            array(),
+            PIXEREX_ELEMENTS_VERSION,
+            'all'
+        );
     }
     
     /**

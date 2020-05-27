@@ -26,7 +26,7 @@ class Pixerex_Slider extends Base {
         return 'px px-image-slider';
     }
     public function get_style_depends() {
-        return ['pixerex-slick','pixerex-slick-theme'];
+        return ['pixerex-slick','pixerex-slick-theme','pixerex-slider-carousel-element'];
     }
     public function get_script_depends() {
         return ['pixerex-elements-js','pixerex-slick-js','pixerex-slider-js'];
