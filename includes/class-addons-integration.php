@@ -192,6 +192,17 @@ class Addons_Integration {
             PIXEREX_ELEMENTS_VERSION,
             'all'
         );
+
+
+        /***Team Carousel Style**/
+
+        wp_register_style(
+            'pixerex-team-carousel-element',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/team-carousel/' . $dir . '/style'  . $suffix . '.css',
+            array(),
+            PIXEREX_ELEMENTS_VERSION,
+            'all'
+        );
     }
     
     /**
@@ -297,6 +308,13 @@ class Addons_Integration {
         wp_register_script(
             'pixerex-slider-js',
             PIXEREX_ELEMENTS_URL . 'assets/frontend/slider/js'.'/main'  . '.js',
+            array('jquery'),
+            PIXEREX_ELEMENTS_VERSION,
+            true
+        );
+        wp_register_script(
+            'pixerex-team-carousel-js',
+            PIXEREX_ELEMENTS_URL . 'assets/frontend/team-carousel/js'.'/main'  . '.js',
             array('jquery'),
             PIXEREX_ELEMENTS_VERSION,
             true

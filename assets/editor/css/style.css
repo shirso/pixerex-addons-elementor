@@ -151,3 +151,9 @@
 .px-flip-card1::before {
     content: "\e98b";
 }
+.px-team-carousel:before {
+    content: "\ea5a";
+}
+.px-dynamic-portfolio{
+    content: "\e847";
+}

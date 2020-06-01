@@ -466,7 +466,7 @@ class Helper_Functions {
      * @param string $new_icon_id
      * @param array $attributes
      */
-    function render_icon( $settings = [], $old_icon_id = 'icon', $new_icon_id = 'selected_icon', $attributes = [] ) {
+   public static function render_icon( $settings = [], $old_icon_id = 'icon', $new_icon_id = 'selected_icon', $attributes = [] ) {
         // Check if its already migrated
         $migrated = isset( $settings['__fa4_migrated'][ $new_icon_id ] );
         // Check if its a new widget without previously selected icon using the old Icon control
@@ -488,6 +488,55 @@ class Helper_Functions {
             }
             printf( '<i %s></i>', \Elementor\Utils::render_html_attributes( $attributes ) );
         }
+    }
+
+
+    public static function get_all_post_type_options() {
+
+        $post_types = get_post_types(array('public' => true), 'objects');
+
+        $options = ['' => ''];
+
+        foreach ($post_types as $post_type) {
+            $options[$post_type->name] = $post_type->label;
+        }
+
+        return  $options;
+    }
+    public static function get_taxonomies_map() {
+
+        $map = array();
+
+        $taxonomies = self::get_all_taxonomies();
+
+        foreach ($taxonomies as $taxonomy) {
+            $map [$taxonomy] = $taxonomy;
+        }
+
+        return apply_filters('lae_taxonomies_map', $map);
+
+    }
+
+    public static function get_all_taxonomies() {
+
+        $taxonomies = get_taxonomies(array('public' => true, '_builtin' => false));
+
+        $taxonomies = array_merge(array('category' => 'category', 'post_tag' => 'post_tag'), $taxonomies);
+
+        return $taxonomies;
+    }
+    public static function get_all_taxonomy_options() {
+
+        $taxonomies = self::get_all_taxonomies();
+
+        $results = array();
+        foreach ($taxonomies as $taxonomy) {
+            $terms = get_terms(array('taxonomy' => $taxonomy));
+            foreach ($terms as $term)
+                $results[$term->taxonomy . ':' . $term->slug] = $term->taxonomy . ':' . $term->name;
+        }
+
+        return apply_filters('lae_taxonomy_options', $results);
     }
 
 }
