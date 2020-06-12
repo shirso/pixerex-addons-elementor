@@ -2,6 +2,13 @@
 
 namespace PixerexElements;
 
+use \Elementor\Controls_Manager;
+use \Elementor\Group_Control_Background;
+use \Elementor\Group_Control_Border;
+use \Elementor\Group_Control_Box_Shadow;
+use \Elementor\Group_Control_Image_Size;
+use \Elementor\Group_Control_Typography;
+use \Elementor\Utils;
 if( ! defined('ABSPATH') ) exit;
 
 class Helper_Functions {
@@ -537,6 +544,184 @@ class Helper_Functions {
         }
 
         return apply_filters('lae_taxonomy_options', $results);
+    }
+    public static function get_all_types_post(){
+        $posts = get_posts( [
+            'post_type'      => 'any',
+            'post_style'     => 'all_types',
+            'post_status'    => 'publish',
+            'posts_per_page' => '-1',
+        ] );
+
+        if ( !empty( $posts ) ) {
+            return wp_list_pluck( $posts, 'post_title', 'ID' );
+        }
+
+        return [];
+
+    }
+    /**
+     * Get all Authors
+     *
+     * @return array
+     */
+    public static function get_authors() {
+        $users = get_users( [
+            'who'                 => 'authors',
+            'has_published_posts' => true,
+            'fields'              => [
+                'ID',
+                'display_name',
+            ],
+        ] );
+
+        if ( !empty( $users ) ) {
+            return wp_list_pluck( $users, 'display_name', 'ID' );
+        }
+
+        return [];
+    }
+    /**
+     * POst Orderby Options
+     *
+     * @return array
+     */
+    public static function get_post_orderby_options() {
+        $orderby = array(
+            'ID'            => 'Post ID',
+            'author'        => 'Post Author',
+            'title'         => 'Title',
+            'date'          => 'Date',
+            'modified'      => 'Last Modified Date',
+            'parent'        => 'Parent Id',
+            'rand'          => 'Random',
+            'comment_count' => 'Comment Count',
+            'menu_order'    => 'Menu Order',
+        );
+
+        return $orderby;
+    }
+    public function pixerex_query_controls(){
+        $post_types = self::get_all_post_type_options();
+        $post_types['by_id'] = __( 'Manual Selection', 'pixerex-elements' );
+        $taxonomies = get_taxonomies( [], 'objects' );
+        $this->start_controls_section(
+            'eael_section_post__filters',
+            [
+                'label' => __( 'Query', 'pixerex-elements' ),
+            ]
+        );
+        $this->add_control(
+            'post_type',
+            [
+                'label'   => __( 'Source', 'essential-addons-for-elementor-lite' ),
+                'type'    => Controls_Manager::SELECT,
+                'options' => $post_types,
+                'default' => key( $post_types ),
+            ]
+        );
+        $this->add_control(
+            'posts_ids',
+            [
+                'label'       => __( 'Search & Select', 'essential-addons-for-elementor-lite' ),
+                'type'        => Controls_Manager::SELECT2,
+                'options'     => self::get_all_types_post(),
+                'label_block' => true,
+                'multiple'    => true,
+                'condition'   => [
+                    'post_type' => 'by_id',
+                ],
+            ]
+        );
+        $this->add_control(
+            'authors', [
+                'label'       => __( 'Author', 'essential-addons-for-elementor-lite' ),
+                'label_block' => true,
+                'type'        => Controls_Manager::SELECT2,
+                'multiple'    => true,
+                'default'     => [],
+                'options'     => self::get_authors(),
+                'condition'   => [
+                    'post_type!' => 'by_id',
+                ],
+            ]
+        );
+        foreach ( $taxonomies as $taxonomy => $object ) {
+            if ( !isset( $object->object_type[0] ) || !in_array( $object->object_type[0], array_keys( $post_types ) ) ) {
+                continue;
+            }
+
+            $this->add_control(
+                $taxonomy . '_ids',
+                [
+                    'label'       => $object->label,
+                    'type'        => Controls_Manager::SELECT2,
+                    'label_block' => true,
+                    'multiple'    => true,
+                    'object_type' => $taxonomy,
+                    'options'     => wp_list_pluck( get_terms( $taxonomy ), 'name', 'term_id' ),
+                    'condition'   => [
+                        'post_type' => $object->object_type,
+                    ],
+                ]
+            );
+        }
+        $this->add_control(
+            'post__not_in',
+            [
+                'label'       => __( 'Exclude', 'essential-addons-for-elementor-lite' ),
+                'type'        => Controls_Manager::SELECT2,
+                'options'     => self::get_all_types_post(),
+                'label_block' => true,
+                'post_type'   => '',
+                'multiple'    => true,
+                'condition'   => [
+                    'post_type!' => 'by_id',
+                ],
+            ]
+        );
+        $this->add_control(
+            'posts_per_page',
+            [
+                'label'   => __( 'Posts Per Page', 'essential-addons-for-elementor-lite' ),
+                'type'    => Controls_Manager::NUMBER,
+                'default' => '4',
+            ]
+        );
+        $this->add_control(
+            'offset',
+            [
+                'label'   => __( 'Offset', 'essential-addons-for-elementor-lite' ),
+                'type'    => Controls_Manager::NUMBER,
+                'default' => '0',
+            ]
+        );
+        $this->add_control(
+            'orderby',
+            [
+                'label'   => __( 'Order By', 'essential-addons-for-elementor-lite' ),
+                'type'    => Controls_Manager::SELECT,
+                'options' => self::get_post_orderby_options(),
+                'default' => 'date',
+
+            ]
+        );
+
+        $this->add_control(
+            'order',
+            [
+                'label'   => __( 'Order', 'essential-addons-for-elementor-lite' ),
+                'type'    => Controls_Manager::SELECT,
+                'options' => [
+                    'asc'  => 'Ascending',
+                    'desc' => 'Descending',
+                ],
+                'default' => 'desc',
+
+            ]
+        );
+
+        $this->end_controls_section();
     }
 
 }

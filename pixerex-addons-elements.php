@@ -79,6 +79,7 @@ if( ! class_exists('Pixerex_Elements_Framework') ) {
         public function init_files() {
             
             require_once ( PIXEREX_ELEMENTS_PATH . 'includes/class-helper-functions.php' );
+            require_once ( PIXEREX_ELEMENTS_PATH . 'includes/class-trait-helper-functions.php' );
             require_once ( PIXEREX_ELEMENTS_PATH . 'admin/settings/modules-setting.php' );
             require_once ( PIXEREX_ELEMENTS_PATH . 'includes/elementor-helper.php' );
             
